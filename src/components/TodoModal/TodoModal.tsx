@@ -44,38 +44,34 @@ export const TodoModal: React.FC = () => {
       />
 
       <div className="modal-card">
-        {loading ? (
-          <Loader />
-        ) : (
-          <>
-            <header className="modal-card-head">
-              <div
-                className="modal-card-title has-text-weight-medium"
-                data-cy="modal-header"
-              >
-                Todo #{selectedTodo.id}
-              </div>
-
-              <button
-                type="button"
-                className="delete"
-                data-cy="modal-close"
-                onClick={() => dispatch(setSelectedTodo(null))}
-              />
-            </header>
-
-            <div className="modal-card-body">
+        <header className="modal-card-head">
+          <div
+            className="modal-card-title has-text-weight-medium"
+            data-cy="modal-header"
+          >
+            Todo #{selectedTodo.id}
+          </div>
+          <button
+            type="button"
+            className="delete"
+            data-cy="modal-close"
+            onClick={() => dispatch(setSelectedTodo(null))}
+          />
+        </header>
+        <div className="modal-card-body">
+          {loading && <Loader />}
+          {!loading && (
+            <>
               <p className="block" data-cy="modal-title">
-                {selectedTodo.title}
+                {selectedTodo.title.charAt(0).toUpperCase() +
+                  selectedTodo.title.slice(1)}
               </p>
-
               <p className="block" data-cy="modal-user">
                 {selectedTodo.completed ? (
                   <strong className="has-text-success">Done</strong>
                 ) : (
                   <strong className="has-text-danger">Planned</strong>
                 )}
-
                 {user && (
                   <>
                     {' by '}
@@ -83,9 +79,9 @@ export const TodoModal: React.FC = () => {
                   </>
                 )}
               </p>
-            </div>
-          </>
-        )}
+            </>
+          )}
+        </div>
       </div>
     </div>
   );

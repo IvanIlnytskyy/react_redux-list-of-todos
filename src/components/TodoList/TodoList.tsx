@@ -9,10 +9,12 @@ export const TodoList: React.FC = () => {
   const { query, status } = useAppSelector(state => state.filter);
   const selectedTodo = useAppSelector(state => state.currentTodo.selectedTodo);
 
+  const normalizedQuery = query.trim().toLowerCase();
+
   const visibleTodos = items.filter(todo => {
-    const matchesQuery = todo.title
-      .toLowerCase()
-      .includes(query.toLowerCase());
+    const title = todo.title.toLowerCase();
+    const matchesQuery =
+      normalizedQuery === '' || title.includes(normalizedQuery);
 
     if (status === 'active') {
       return !todo.completed && matchesQuery;
@@ -27,12 +29,11 @@ export const TodoList: React.FC = () => {
 
   return (
     <>
-
       {visibleTodos.length === 0 ? (
         <p className="notification is-warning">
           There are no todos matching current filter criteria
         </p>
-      ): (
+      ) : (
       <table className="table is-narrow is-fullwidth">
         <thead>
           <tr>
@@ -56,9 +57,9 @@ export const TodoList: React.FC = () => {
               data-cy="todo"
               className={selectedTodo?.id === todo.id ? 'has-background-info-light' : ''}
             >
-              <td>{todo.id}</td>
+              <td className="is-vcentered">{todo.id}</td>
 
-              <td>
+              <td className="is-vcentered">
                 {todo.completed && (
                   <span className="icon" data-cy="iconCompleted">
                     <i className="fas fa-check" />
@@ -68,11 +69,11 @@ export const TodoList: React.FC = () => {
 
               <td className="is-expanded">
                 <p className={todo.completed ? 'has-text-success' : 'has-text-danger'}>
-                  {todo.title}
+                  {todo.title.charAt(0).toUpperCase() + todo.title.slice(1)}
                 </p>
               </td>
 
-              <td className="has-text-right">
+              <td className="has-text-right is-vcentered">
                 <button
                   data-cy="selectButton"
                   className="button"
