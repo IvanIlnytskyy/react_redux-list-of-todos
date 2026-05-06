@@ -57,9 +57,9 @@ export const TodoList: React.FC = () => {
               data-cy="todo"
               className={selectedTodo?.id === todo.id ? 'has-background-info-light' : ''}
             >
-              <td className="is-vcentered">{todo.id}</td>
+              <td>{todo.id}</td>
 
-              <td className="is-vcentered">
+              <td>
                 {todo.completed && (
                   <span className="icon" data-cy="iconCompleted">
                     <i className="fas fa-check" />
@@ -73,7 +73,7 @@ export const TodoList: React.FC = () => {
                 </p>
               </td>
 
-              <td className="has-text-right is-vcentered">
+              <td className="has-text-right">
                 <button
                   data-cy="selectButton"
                   className="button"

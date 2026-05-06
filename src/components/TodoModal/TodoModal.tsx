@@ -60,7 +60,7 @@ export const TodoModal: React.FC = () => {
         </header>
         <div className="modal-card-body">
           {loading && <Loader />}
-          {!loading && (
+          {!loading && user && (
             <>
               <p className="block" data-cy="modal-title">
                 {selectedTodo.title.charAt(0).toUpperCase() +
