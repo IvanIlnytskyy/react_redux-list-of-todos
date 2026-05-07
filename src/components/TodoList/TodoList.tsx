@@ -13,8 +13,7 @@ export const TodoList: React.FC = () => {
 
   const visibleTodos = items.filter(todo => {
     const title = todo.title.toLowerCase();
-    const matchesQuery =
-      normalizedQuery === '' || title.includes(normalizedQuery);
+    const matchesQuery = title.includes(normalizedQuery);
 
     if (status === 'active') {
       return !todo.completed && matchesQuery;
@@ -60,10 +59,14 @@ export const TodoList: React.FC = () => {
               <td>{todo.id}</td>
 
               <td>
-                {todo.completed && (
+                {todo.completed ? (
                   <span className="icon" data-cy="iconCompleted">
                     <i className="fas fa-check" />
                   </span>
+                ) : (
+                <span className="icon" data-cy="iconNotCompleted">
+                  <i className="far fa-circle" />
+                </span>
                 )}
               </td>
 
