@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Loader } from '../Loader';
 import { useAppSelector, useAppDispatch } from '../../app/hooks';
 import { setSelectedTodo } from '../../features/currentTodoSlice';
+import { getUser } from '../../api';
 
 type User = {
   id: number;
@@ -24,12 +25,10 @@ export const TodoModal: React.FC = () => {
     setLoading(true);
     setUser(null);
 
-    fetch(`https://jsonplaceholder.typicode.com/users/${selectedTodo.userId}`)
-      .then(res => res.json())
-      .then(data => {
-        setUser(data);
-        setLoading(false);
-      });
+    getUser(selectedTodo.userId).then(data => {
+      setUser(data);
+      setLoading(false);
+    });
   }, [selectedTodo]);
 
   if (!selectedTodo) {
